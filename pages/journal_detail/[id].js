@@ -15,10 +15,13 @@ function JournalDetail() {
       getOneJournal(id);
     }
   }, [id]);
-
   return (
     <>
-      <SEO />
+      <SEO
+        title={oneJournal?.title}
+        description={oneJournal?.description}
+        keywords={oneJournal?.slug}
+      />
       <div className="container section">
         <div className="row justify-content-center mb-5">
           <div className="col-lg-7 text-center">

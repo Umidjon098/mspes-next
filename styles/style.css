@@ -109,7 +109,17 @@ ul {
   width: 64px !important;
   height: 64px !important;
 }
-
+.outhor_data {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 12px;
+  flex-wrap: wrap;
+}
+.outhor_data .name {
+  display: block;
+  width: max-content;
+}
 @media (max-width: 992px) {
   .typograph_item {
     flex-direction: column;

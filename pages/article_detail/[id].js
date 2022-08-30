@@ -25,7 +25,11 @@ function ArticleDetail() {
   };
   return (
     <>
-      <SEO />
+      <SEO
+        title={articleDetail?.title}
+        description={articleDetail?.annotation}
+        keywords={articleDetail?.slug}
+      />
       <div className="container section">
         <div className="row justify-content-center mb-5">
           <div className="col-lg-7 text-center">
@@ -53,7 +57,11 @@ function ArticleDetail() {
                   {articleDetail?.authors?.slice(0, 1)}
                 </div>
                 <div className="outhor_data">
-                  <div className="name">{articleDetail?.authors}</div>
+                  {articleDetail?.author?.map((item, key) => (
+                    <div key={key} className="name">
+                      {item.full_name}
+                    </div>
+                  ))}
                 </div>
               </div>
               <a

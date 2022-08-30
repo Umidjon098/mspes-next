@@ -45,7 +45,11 @@ function Home() {
 
   return (
     <>
-      <SEO title="" description="" keywords="" />
+      <SEO
+        title="Mspes"
+        description=""
+        keywords="maqola, transport, poyezd, temiryo'l, texnika, tarix, ijitimoiy, iqtisodiy, taqriz, ilmiy ish, ilmiy maqola, fan, ta'lim | статья, транспорт, поезд, Железнодорожный, технологии, История, Социальное, Экономическая, обзор, исследовательская работа, исследовательская работа, наука, Образование | article, transport, train, railway, technology, history, social, economic, review, research paper, research paper, science, education"
+      />
       <div className="container section">
         <div className="row justify-content-center mb-5">
           <div className="col-lg-7 text-center">

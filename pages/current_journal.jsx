@@ -12,9 +12,14 @@ function CurrentJournal() {
   useEffect(() => {
     getCurrentJournal();
   }, []);
+
   return (
     <>
-      <SEO />
+      <SEO
+        title={currentJournalDetail[0]?.title}
+        description={currentJournalDetail[0]?.description}
+        keywords={currentJournalDetail[0]?.slug}
+      />
       <div className="container section">
         <div className="row justify-content-center">
           <div className="col-lg-7 text-center">
