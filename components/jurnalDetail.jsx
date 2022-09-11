@@ -31,6 +31,7 @@ function JurnalDetail({ oneJournal = {} }) {
         });
     }
   }, [oneJournal.id]);
+
   return (
     <div>
       {Object.keys(oneJournal).length === 0 ? (
@@ -79,7 +80,7 @@ function JurnalDetail({ oneJournal = {} }) {
                   <FilePdfOutlined />
                   Cтатьи:
                 </div>
-                <div className="value">{oneJournal.count_articles}</div>
+                <div className="value">{oneJournal?.articles?.length}</div>
               </div>
             </div>
             <a

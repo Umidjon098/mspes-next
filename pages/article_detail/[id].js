@@ -1,34 +1,26 @@
-import React, { useContext, useEffect } from "react";
-import { MainContext } from "../../utils/MainContext";
-import { DownloadOutlined } from "@ant-design/icons";
+import React from "react";
+import { DownloadOutlined, EyeOutlined } from "@ant-design/icons";
 import { ArticleApi } from "../../api/main/article";
 import { tl } from "../../configs/i18n";
-import { useRouter } from "next/router";
 import SEO from "../../components/seo";
-function ArticleDetail() {
-  const { getArticleDetail, articleDetail } = useContext(MainContext);
+import axios from "axios";
 
-  const router = useRouter();
-  const id = router.query.id;
-
+function ArticleDetail({ data }) {
   const getDate = (date) => {
     return <div>{new Date(date).toString().slice(4, 15)}</div>;
   };
-  useEffect(() => {
-    if (id) {
-      getArticleDetail(id);
-    }
-  }, [id]);
 
   const FileDownload = (id) => {
     ArticleApi.download(id);
   };
+  console.log(data);
+
   return (
     <>
       <SEO
-        title={articleDetail?.title}
-        description={articleDetail?.annotation}
-        keywords={articleDetail?.slug}
+        title={data?.title}
+        description={data?.annotation}
+        keywords={data?.slug}
       />
       <div className="container section">
         <div className="row justify-content-center mb-5">
@@ -39,35 +31,40 @@ function ArticleDetail() {
         <div className=" trending_article detail">
           <div className="trending_vertical">
             <div className="img_box">
-              <img src={articleDetail?.photo_url} alt="lorem" />
+              <img src={data?.photo_url} alt="lorem" />
             </div>
             <div className="trending_data">
               <div className="category">
-                <div className="name">{articleDetail?.category?.title}</div>-
+                <div className="name">{data?.category?.title}</div>-
                 <div className="create_date">
-                  {getDate(articleDetail.published_date)}
+                  {getDate(data.published_date)}
+                </div>
+                <div className="extra-data">
+                  <div className="item">
+                    <EyeOutlined size={20} />
+                    <span>{data.views}</span>
+                  </div>
+                  <div className="item">
+                    <DownloadOutlined />
+                    <span>{data.downloads}</span>
+                  </div>
+                  <div className="item">{`${data.page_from}-${
+                    data.page_to
+                  } ${tl("pages")}`}</div>
                 </div>
               </div>
-              <div className="title">{articleDetail?.title}</div>
-              <div className="short_description">
-                {articleDetail?.annotation}
-              </div>
+              <div className="title">{data?.title}</div>
+              <div className="short_description">{data?.annotation}</div>
               <div className="author">
-                <div className="authoe_img">
-                  {articleDetail?.authors?.slice(0, 1)}
-                </div>
+                <div className="authoe_img">{data?.authors?.slice(0, 1)}</div>
                 <div className="outhor_data">
-                  {articleDetail?.author?.map((item, key) => (
-                    <div key={key} className="name">
-                      {item.full_name}
-                    </div>
-                  ))}
+                  <div className="name">{data?.authors}</div>
                 </div>
               </div>
               <a
-                onClick={() => FileDownload(articleDetail.id)}
+                onClick={() => FileDownload(data.id)}
                 className="article_download"
-                href={articleDetail.file_url}
+                href={data.file_url}
                 target="_blank"
               >
                 <div className="icon">
@@ -81,5 +78,12 @@ function ArticleDetail() {
     </>
   );
 }
+export async function getServerSideProps({ query }) {
+  // Fetch data from external API
+  const res = await axios(`https://api.mspes.kz/api/v1/articles/${query.id}`);
+  const data = await res.data;
 
+  // Pass data to the page via props
+  return { props: { data } };
+}
 export default ArticleDetail;
