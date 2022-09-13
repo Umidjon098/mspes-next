@@ -48,7 +48,7 @@ function JurnalDetail({ oneJournal = {} }) {
                 {getDate(oneJournal.published_date)}
               </div>
             </div>
-            <Link href={`/journal_detail/${oneJournal.id}`}>
+            <Link href={`/journal_detail/${oneJournal.slug}`}>
               <a className="title"> {oneJournal.title}</a>
             </Link>
             <div className="short_description">{oneJournal.description}</div>

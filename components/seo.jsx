@@ -1,10 +1,39 @@
 import Head from "next/head";
 
-export default function SEO({ title, description, image, keywords }) {
+export default function SEO({
+  title,
+  description,
+  image,
+  keywords,
+  resolvedUrl = "",
+  pdf_url = "https://mspes.kz",
+  page_from = 0,
+  page_to = 0,
+  authors = [],
+  issn = "",
+  date = "",
+}) {
   return (
     <Head>
       <title>{title ? `${title}` : "mspes.kz"}</title>
       <meta data-n-head="ssr" charSet="utf-8" />
+      {authors?.map((data, id) => {
+        return (
+          <meta key={id} name="citation_author" content={data.full_name} />
+        );
+      })}
+      <meta name="citation_issn" content={issn} />
+      <meta name="citation_journal_title" content={title} />
+      <meta name="citation_firstpage" content={page_from} />
+      <meta name="citation_lastpage" content={page_to} />
+      <meta name="citation_pdf_url" content={pdf_url} />
+      <meta
+        data-n-head="ssr"
+        name="dc.Source"
+        content={`https://mspes.kz${resolvedUrl}`}
+      />
+      <meta data-n-head="ssr" name="dc.Date" content={date} />
+      <meta data-n-head="ssr" name="dc.Format" content="application/pdf" />
       <meta
         data-n-head="ssr"
         name="viewport"
@@ -42,7 +71,7 @@ export default function SEO({ title, description, image, keywords }) {
         data-n-head="ssr"
         data-hid="og:url"
         property="og:url"
-        content="https://mspes.kz"
+        content={`https://mspes.kz${resolvedUrl}`}
       />
       <meta data-n-head="ssr" property="og:type" content="website" />
       <meta
@@ -68,7 +97,7 @@ export default function SEO({ title, description, image, keywords }) {
         data-n-head="ssr"
         data-hid="twitter:url"
         name="twitter:url"
-        content="https://mspes.kz"
+        content={`https://mspes.kz${resolvedUrl}`}
       />
       <meta name="twitter:card" content="summary" />
       <meta name="twitter:title" content={title ? `${title}` : `mspes.kz`} />

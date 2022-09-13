@@ -35,7 +35,7 @@ export default function MostPopular({ mostPopular }) {
                     {getDate(data.published_date)}
                   </div>
                 </div>
-                <Link href={`/article_detail/${data.id}`}>
+                <Link href={`/article_detail/${data.slug}`}>
                   <a className="title">{data.title}</a>
                 </Link>
                 <div className="short_description">{data.annotation}</div>

@@ -15,7 +15,7 @@ const SmallArticle = ({ data }) => {
           <div className="name">{data.category.title}</div>-
           <div className="create_date">{getDate(data.published_date)}</div>
         </div>
-        <Link href={`/article_detail/${data.id}`}>
+        <Link href={`/article_detail/${data.slug}`}>
           <a className="title">{data.title}</a>
         </Link>
         <div className="author">

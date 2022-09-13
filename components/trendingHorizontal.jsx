@@ -40,7 +40,7 @@ const Trending = ({ journal = [] }) => {
                     {getDate(data.published_date)}
                   </div>
                 </div>
-                <Link href={`/journal_detail/${data.id}`}>
+                <Link href={`/journal_detail/${data.slug}`}>
                   <a className="title">{`${data.title} № ${data.number}`}</a>
                 </Link>
                 <div className="short_description">{data.description}</div>

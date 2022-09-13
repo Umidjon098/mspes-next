@@ -5,7 +5,7 @@ import { tl } from "../../configs/i18n";
 import SEO from "../../components/seo";
 import axios from "axios";
 
-function ArticleDetail({ data }) {
+function ArticleDetail({ data, resolvedUrl }) {
   const getDate = (date) => {
     return <div>{new Date(date).toString().slice(4, 15)}</div>;
   };
@@ -14,13 +14,19 @@ function ArticleDetail({ data }) {
     ArticleApi.download(id);
   };
   console.log(data);
-
   return (
     <>
       <SEO
         title={data?.title}
         description={data?.annotation}
         keywords={data?.slug}
+        resolvedUrl={resolvedUrl}
+        pdf_url={data?.file_url}
+        page_from={data?.page_from}
+        page_to={data?.page_to}
+        authors={data?.author}
+        issn={data?.issn_number}
+        date={data?.published_date}
       />
       <div className="container section">
         <div className="row justify-content-center mb-5">
@@ -78,12 +84,13 @@ function ArticleDetail({ data }) {
     </>
   );
 }
-export async function getServerSideProps({ query }) {
+export async function getServerSideProps(ctx) {
+  const { resolvedUrl, query } = ctx;
   // Fetch data from external API
   const res = await axios(`https://api.mspes.kz/api/v1/articles/${query.id}`);
   const data = await res.data;
 
   // Pass data to the page via props
-  return { props: { data } };
+  return { props: { data, resolvedUrl } };
 }
 export default ArticleDetail;
